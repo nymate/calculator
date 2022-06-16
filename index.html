@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<body>
+    <button id="1" class="numbers">1</button>
+    <button id="2" class="numbers">2</button>
+    <button id="3" class="numbers">3</button>
+    <button id="4" class="numbers">4</button>
+    <button id="5" class="numbers">5</button>
+    <button id="6" class="numbers">6</button>
+    <button id="7" class="numbers">7</button>
+    <button id="8" class="numbers">8</button>
+    <button id="9" class="numbers">9</button>
+    <button id="0" class="numbers">0</button>
+    <button id="add" class="operation" value="+">+</button>
+    <button id="subtract" class="operation" value="-">-</button>
+    <button id="multiply" class="operation" value="*">*</button>
+    <button id="divide" class="operation" value="/">/</button>
+    <button id="equals" >=</button>
+    <div id="display">abc</div>
+    <button >c</button>
+  
+    <script>
+            function add(num1,num2) {
+                return num1 +num2;   
+            };
+
+            function subtract(num1,num2) {
+                return num1-num2
+            };
+
+            function multiply(num1,num2) {
+                return num1 *num2; 
+            };
+
+            function divide(num1,num2) {
+                return num1 / num2; 
+            };
+
+            function operate(operator, num1, num2){
+                if (operator == "add") {console.log(add(num1,num2))}
+                else if (operator == "subtract") {console.log(subtract(num1,num2))}
+                else if (operator == "multiply") {console.log(multiply(num1,num2))}
+                else {console.log(divide(num1,num2))}    
+            }
+
+
+            let firstNumber = "";
+            let secondNumber = "";
+            let whichOperation ="";
+            let userInput = "";
+            
+            const numButtons = document.querySelectorAll('.numbers');
+            numButtons.forEach((num) => {
+                num.addEventListener('click', () => {                
+                    userInput += num.id;
+                    const displayer = document.querySelector('#display');
+                    displayer.textContent = userInput;
+                });
+            });
+
+            const operationButtons = document.querySelectorAll('.operation');            
+            operationButtons.forEach((operat) => {
+                operat.addEventListener('click', () => {
+                    whichOperation = operat.id;
+                    firstNumber = userInput;
+                    userInput = "";
+                    const displayer = document.querySelector('#display');
+                    displayer.textContent = firstNumber//+operat.value;
+                });
+            });
+
+            const solveOperation = document.querySelector('#equals');
+            solveOperation.addEventListener('click', () => {
+                    secondNumber = userInput;
+                    userInput = "";
+                    operate(whichOperation, parseFloat(firstNumber), parseFloat(secondNumber));
+                    //const displayer = document.querySelector('#display');
+                    //displayer.textContent = firstNumber+operat.value;
+            });           
+    </script>
+</body>
+</html>
