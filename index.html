@@ -22,67 +22,97 @@
     <button id="multiply" class="operation" value="*">*</button>
     <button id="divide" class="operation" value="/">/</button>
     <button id="equals" >=</button>
-    <div id="display">abc</div>
-    <button >c</button>
+    <div id="display">0</div>
+    <button id="clear">c</button>
   
     <script>
             function add(num1,num2) {
                 return num1 +num2;   
             };
-
             function subtract(num1,num2) {
                 return num1-num2
             };
-
             function multiply(num1,num2) {
                 return num1 *num2; 
             };
-
             function divide(num1,num2) {
                 return num1 / num2; 
             };
-
             function operate(operator, num1, num2){
-                if (operator == "add") {console.log(add(num1,num2))}
-                else if (operator == "subtract") {console.log(subtract(num1,num2))}
-                else if (operator == "multiply") {console.log(multiply(num1,num2))}
-                else {console.log(divide(num1,num2))}    
+                const displayer = document.querySelector('#display');
+
+                if (operator == "add") {
+                    total = add(parseFloat(num1),parseFloat(num2));
+                    displayer.textContent = total;
+                }        
+                else if (operator == "subtract") {
+                    total = subtract(parseFloat(num1),parseFloat(num2));
+                    displayer.textContent = total;
+                }
+                else if (operator == "multiply") {
+                    total = multiply(parseFloat(num1),parseFloat(num2));
+                    displayer.textContent = total;
+                }
+                else {
+                    total = divide(parseFloat(num1),parseFloat(num2));
+                    displayer.textContent = total;
+                }    
             }
 
-
-            let firstNumber = "";
+            let firstNumber = "0";
             let secondNumber = "";
             let whichOperation ="";
             let userInput = "";
+            let total = "";
             
             const numButtons = document.querySelectorAll('.numbers');
             numButtons.forEach((num) => {
                 num.addEventListener('click', () => {                
                     userInput += num.id;
                     const displayer = document.querySelector('#display');
-                    displayer.textContent = userInput;
+                    displayer.textContent = parseFloat(userInput);
                 });
             });
 
             const operationButtons = document.querySelectorAll('.operation');            
             operationButtons.forEach((operat) => {
                 operat.addEventListener('click', () => {
-                    whichOperation = operat.id;
-                    firstNumber = userInput;
-                    userInput = "";
-                    const displayer = document.querySelector('#display');
-                    displayer.textContent = firstNumber//+operat.value;
+                    if(secondNumber==""){
+                        whichOperation = operat.id;
+                        firstNumber = userInput;
+                        userInput = "";
+                        secondNumber = firstNumber;
+                        const displayer = document.querySelector('#display');
+                        displayer.textContent = firstNumber
+                    }
+                    else{
+                        secondNumber = userInput;
+                        userInput = "";
+                        operate(whichOperation, parseFloat(firstNumber), parseFloat(secondNumber));
+                        firstNumber = total;
+                        whichOperation = operat.id;
+                    }
                 });
             });
 
             const solveOperation = document.querySelector('#equals');
             solveOperation.addEventListener('click', () => {
                     secondNumber = userInput;
-                    userInput = "";
                     operate(whichOperation, parseFloat(firstNumber), parseFloat(secondNumber));
-                    //const displayer = document.querySelector('#display');
-                    //displayer.textContent = firstNumber+operat.value;
-            });           
+                    const displayer = document.querySelector('#display');
+                    displayer.textContent = total;
+            }); 
+            
+            const clearAll = document.querySelector('#clear');
+            clearAll.addEventListener('click', () => {
+                firstNumber = "0";
+                secondNumber = "";
+                whichOperation = "";
+                userInput = "";
+                total = "";
+                const displayer = document.querySelector('#display');
+                displayer.textContent = "0";
+            });  
     </script>
 </body>
 </html>
