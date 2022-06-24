@@ -5,25 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button id="1" class="numbers">1</button>
-    <button id="2" class="numbers">2</button>
-    <button id="3" class="numbers">3</button>
-    <button id="4" class="numbers">4</button>
-    <button id="5" class="numbers">5</button>
-    <button id="6" class="numbers">6</button>
-    <button id="7" class="numbers">7</button>
-    <button id="8" class="numbers">8</button>
-    <button id="9" class="numbers">9</button>
-    <button id="0" class="numbers">0</button>
-    <button id="add" class="operation" value="+">+</button>
-    <button id="subtract" class="operation" value="-">-</button>
-    <button id="multiply" class="operation" value="*">*</button>
-    <button id="divide" class="operation" value="/">/</button>
-    <button id="equals" >=</button>
-    <div id="display">0</div>
-    <button id="clear">c</button>
+    <div id="container">
+        <div id="calculator">
+            <div id="display">0</div>
+            <div id="buttons">
+                <button id="clear">C</button>
+                <button id="backspace">DELETE</button>
+                <button id="7" class="numbers">7</button>
+                <button id="8" class="numbers">8</button>
+                <button id="9" class="numbers">9</button>
+                <button id="divide" class="operation" value="/">/</button>
+                <button id="4" class="numbers">4</button>
+                <button id="5" class="numbers">5</button>
+                <button id="6" class="numbers">6</button>
+                <button id="multiply" class="operation" value="*">*</button>
+                <button id="1" class="numbers">1</button>
+                <button id="2" class="numbers">2</button>
+                <button id="3" class="numbers">3</button>
+                <button id="subtract" class="operation" value="-">-</button>   
+                <button id="0" style="width: 186px;" class="numbers">0</button>
+                <button id="equals" >=</button>
+                <button id="add" class="operation" value="+">+</button>                
+            </div>
+        </div>    
+    </div>
+
   
     <script>
             function add(num1,num2) {
@@ -62,7 +71,7 @@
             let firstNumber = "0";
             let secondNumber = "";
             let whichOperation ="";
-            let userInput = "";
+            let userInput = "0";
             let total = "";
             
             const numButtons = document.querySelectorAll('.numbers');
@@ -77,17 +86,17 @@
             const operationButtons = document.querySelectorAll('.operation');            
             operationButtons.forEach((operat) => {
                 operat.addEventListener('click', () => {
-                    if(whichOperation=="" && secondNumber==""){
+                    if(secondNumber=="" && userInput=="0"){
                         whichOperation = operat.id;
-                        //secondNumber = userInput;
-                        //userInput = "";
-                        //secondNumber = firstNumber;
-                        const displayer = document.querySelector('#display');
-                        displayer.textContent = firstNumber;
+                        userInput = "";
+                        secondNumber = firstNumber;
+
+                        operate(whichOperation, parseFloat(firstNumber), parseFloat(secondNumber));
+                        firstNumber = total;
                     }
-                    else if(secondNumber==""){
+                    else if(secondNumber=="" && userInput!="0"){
                         whichOperation = operat.id;
-                        firstNumber = userInput;
+                        firstNumber = parseFloat(userInput);
                         userInput = "";
                         secondNumber = firstNumber;
                         const displayer = document.querySelector('#display');
@@ -109,18 +118,25 @@
                     operate(whichOperation, parseFloat(firstNumber), parseFloat(secondNumber));
                     const displayer = document.querySelector('#display');
                     displayer.textContent = total;
-            }); 
-            
+            });  
+
             const clearAll = document.querySelector('#clear');
             clearAll.addEventListener('click', () => {
                 firstNumber = "0";
                 secondNumber = "";
                 whichOperation = "";
-                userInput = "";
+                userInput = "0";
                 total = "";
                 const displayer = document.querySelector('#display');
                 displayer.textContent = "0";
             });  
+
+            const backSpace = document.querySelector('#backspace');
+            backSpace.addEventListener('click', () => {
+                userInput = userInput.slice(0,-1);
+                const displayer = document.querySelector('#display');
+                displayer.textContent = parseFloat(userInput);
+            }); 
     </script>
 </body>
 </html>

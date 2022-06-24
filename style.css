@@ -1,0 +1,84 @@
+html {
+    height: 100%;
+
+}
+
+body { 
+    height: 100%;
+    text-align: center;
+    background-image: url("./images/geo1.jpg");
+    background-size: cover;
+}
+
+#container {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#calculator {
+    border:2px solid rgba(28, 26, 26);
+    background-color: rgb(28, 26, 26);
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    height: 550px;
+    width: 413px;
+    row-gap: 10px;
+    justify-content: space-between;
+}
+#display{
+    background-color: #67997f;
+    display: flex;
+    height: 100%;
+    margin: 16px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 55px;
+    justify-content: end;
+    align-items: end;
+    font-weight: bold;
+    padding: 6px;
+    overflow: hidden;
+}
+
+#buttons{
+    height: 100%;
+    padding: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+button{
+    height: 70px;
+    width: 90px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size:x-large;
+    font-weight: bold;
+}
+
+#clear, #backspace {
+    background-color: rgba(59, 167, 213, 0.924);
+    height: 70px;
+    width: 186px;
+}
+
+.numbers {
+    background-color: #697486;
+    color:beige;
+}
+
+.operation {
+    background-color: rgb(198, 97, 42);
+}
+
+#equals {
+    background-color: rgb(198, 97, 42);
+}
+
+
+
+
